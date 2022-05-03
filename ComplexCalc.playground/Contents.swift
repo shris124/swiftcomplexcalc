@@ -26,7 +26,83 @@ print("Welcome back to the UW Calculator")
 //: Remember, don't change any of the pre-existing tests!
 //:
 class Calculator {
+    func add(lhs a: Int, rhs b: Int) -> Int {
+        return a + b
+    }
     
+    func add(_ a: [Int]) -> Int {
+        var sum = 0
+        for index in a {
+            sum += index
+        }
+        return sum
+    }
+    
+    func add(lhs: (Int, Int), rhs: (Int, Int)) -> (Int, Int) {
+        return ((lhs.0 + rhs.0), (lhs.1 + rhs.1));
+    }
+    
+    func add(lhs: [String: Int], rhs: [String : Int]) -> [String : Int] {
+        let xval1 = lhs["x"]
+        let xval2 = rhs["x"]
+        let yval1 = lhs["y"]
+        let yval2 = rhs["y"]
+        return ["x":(xval1! + xval2!), "y": (yval1! + yval2!)]
+    }
+    
+    func subtract(lhs a: Int, rhs b: Int) -> Int {
+        return a - b
+    }
+    
+    func subtract(lhs: (Int, Int), rhs: (Int, Int)) -> (Int, Int) {
+        return ((lhs.0 - rhs.0), (lhs.1 - rhs.1));
+    }
+    
+    func subtract(lhs: [String:Int], rhs: [String:Int])-> [String:Int] {
+        let xval1 = lhs["x"]
+        let xval2 = rhs["x"]
+        let yval1 = lhs["y"]
+        let yval2 = rhs["y"]
+        return ["x":(xval1! - xval2!), "y": (yval1! - yval2!)]
+    }
+    
+    func multiply(lhs a: Int, rhs b: Int) ->  Int {
+        return a * b
+    }
+    
+    func multiply(_ a: [Int]) -> Int {
+        var total = 1
+        for index in a {
+            total *= index
+        }
+        return total
+    }
+    
+    func divide(lhs a: Int, rhs b: Int) -> Int {
+        return a / b
+    }
+    
+    func count(_ a: [Int]) -> Int {
+        return a.count
+    }
+    
+    func avg(_ a : [Int]) -> Int {
+        let total = add(a)
+        let count = count(a)
+        return total / count
+    }
+    
+    func mathOp (lhs: Int, rhs: Int, op: (Int, Int) -> Int) -> Int {
+        return op(lhs, rhs);
+    }
+    
+    func mathOp(args a: [Int], beg b: Int, op: (Int, Int) -> Int) -> Int {
+        var total = b;
+        for index in a {
+            total = op(total, index);
+        }
+        return total;
+    }
 }
 
 //: Don't change the name of this object (`calc`); it's used in all the tests.
@@ -47,7 +123,7 @@ calc.subtract(lhs: 2, rhs: 2) == 0
 calc.multiply(lhs: 2, rhs: 2) == 4
 calc.divide(lhs: 2, rhs: 2) == 1
 
-calc.mathOp(lhs: 5, rhs: 5, op: { (lhs: Int, rhs: Int) -> Int in (lhs + rjs) + (lhs * rhs) }) == 35
+calc.mathOp(lhs: 5, rhs: 5, op: { (lhs: Int, rhs: Int) -> Int in (lhs + rhs) + (lhs * rhs) }) == 35
     // This style is one way of writing an anonymous function
 calc.mathOp(lhs: 10, rhs: -5, op: { ($0 + $1) + ($0 - $1) }) == 20
     // This is the second, more terse, style; either works
